@@ -70,5 +70,7 @@ https://bafybeidlajl7oippalzcosili3uizggjanegqaxpjwkawsy7vv6puh634e.ipfs.w3s.lin
 
 4. Simple Air Quality Reporting: Allow users to quickly and easily report air quality observations in their local area, using a simple form that captures basic information about the observation, such as the location, date, and time. This would require implementing a form within the app that can capture user input and send it to a backend database.
 
+5. Aggregate journies: Use the collection of stored journies from the Airplan app to create useful visualizations, or allow the users to correct or add comments around air quality reports in real time from the web.
+
 
 
