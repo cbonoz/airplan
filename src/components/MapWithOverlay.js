@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, useMapEvents, ZoomControl } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, useMapEvents, ZoomControl, Polyline } from 'react-leaflet';
 import axios from 'axios';
 import { getAirQualityData } from '@/api';
 import { getMarkerColor, makeIcon, readableDateTime } from '@/util';
@@ -129,7 +129,7 @@ const MapWithOverlay = () => {
           borderRadius: '5px',
           opacity: 0.8,
           width: 300,
-          height: 400,
+          height: 425,
           background: 'white',
           top: 0,
           left: 0,
@@ -147,7 +147,7 @@ const MapWithOverlay = () => {
           >
             <Steps.Step title="Start" description="Click to set start point" />
             <Steps.Step title="End" description="Click to set end point" />
-            <Steps.Step title="Record" description="Click to start recording" />
+            <Steps.Step title="Record" description="Start recording. Map is now clickable." />
           </Steps>
           <br />
           <br />
@@ -222,6 +222,9 @@ const MapWithOverlay = () => {
           </Popup>
         </Marker>
           }
+
+          {start && end && <Polyline pathOptions={{ color: 'black' }} positions={[start, end]} />}
+
 
         {airQualityData?.map((result, i) => (
           <Marker key={i} position={[result.coordinates.latitude, result.coordinates.longitude]} icon={

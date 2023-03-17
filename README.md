@@ -38,6 +38,29 @@ Using the OpenAQ API, Airplan pulls air quality data from a variety of sources, 
 
 The app should now be running on port 3000.
 
+### Example recorded Airplan
+https://bafybeidlajl7oippalzcosili3uizggjanegqaxpjwkawsy7vv6puh634e.ipfs.w3s.link/
+
+### Screenshots
+
+#### Main map view
+<img src="./img/home.png" width=800 />
+
+#### Quick navigate
+<img src="./img/home.png" width=800 />
+
+#### Completed journey
+<img src="./img/home.png" width=800 />
+
+#### Uploaded result (shareable / permanent archive)
+<img src="./img/home.png" width=800 />
+
+#### Uploaded result (json)
+<img src="./img/home.png" width=800 />
+
+#### About page with scale
+<img src="./img/about.png" width=800 />
+
 ### Future work
 1. Customizable Air Quality Alerts: Allow users to set up customizable air quality alerts to be notified when the air quality index (AQI) in their area reaches a certain level, or when specific pollutants exceed a certain threshold. This would require implementing a notification system that leverages the OpenAQ API to pull in real-time air quality data.
 
