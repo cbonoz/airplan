@@ -53,7 +53,7 @@ const MapWithOverlay = () => {
     }
 
     if (!recording) {
-      alert('Please start recording first')
+      alert('Please start recording to begin the journey')
       return;
     }
     setSelectedLocation(event.latlng);
@@ -179,7 +179,10 @@ const MapWithOverlay = () => {
         onSelect={(d) => {
           d = JSON.parse(d)
           console.log('selected', d, map)
-          map?.flyTo([d.lat, d.lng], 13)
+          map?.flyTo([d.lat, d.lng], 13, {
+            animate: true,
+            duration: 3 
+          })
          }}
         placeholder="Quick navigate"
       />}
