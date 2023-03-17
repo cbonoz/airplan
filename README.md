@@ -31,7 +31,7 @@ Using the OpenAQ API, Airplan pulls air quality data from a variety of sources, 
 1. Define the following env variables in a `.env` file
 
 <pre>
-    WEB3_STORAGE_KEY= # your web3.storage api key. Used for hosting env data to web3/filecoin    
+    NEXT_PUBLIC_WEB3_STORAGE_KEY= # your web3.storage api key. Used for hosting env data to web3/filecoin    
 </pre>
 
 2. `yarn; yarn dev`

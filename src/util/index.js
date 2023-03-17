@@ -22,8 +22,6 @@ const getPM25Color = (pm25) => {
     return 'darkred';
 }
 
-
-
 export const getMarkerColor = (measurements) => {
     for (let i = 0; i < measurements.length; i++) {
         if (measurements[i].parameter === 'pm25') {
@@ -31,4 +29,19 @@ export const getMarkerColor = (measurements) => {
         }
     }
     return 'green';
+}
+
+
+export const makeIcon = (color) => {
+    return L.icon({
+        iconUrl: `https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-${color}.png`,
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41]
+    })
+}
+
+export const readableDateTime = (time) => {
+    return `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()} ${time.getHours()}:${time.getMinutes()}:${time.getSeconds()}`
 }
