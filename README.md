@@ -47,16 +47,16 @@ https://bafybeidlajl7oippalzcosili3uizggjanegqaxpjwkawsy7vv6puh634e.ipfs.w3s.lin
 <img src="./img/home.png" width=800 />
 
 #### Quick navigate
-<img src="./img/home.png" width=800 />
+<img src="./img/navigate.png" width=800 />
 
 #### Completed journey
-<img src="./img/home.png" width=800 />
+<img src="./img/modal.png" width=800 />
 
 #### Uploaded result (shareable / permanent archive)
-<img src="./img/home.png" width=800 />
+<img src="./img/ipfs.png" width=800 />
 
 #### Uploaded result (json)
-<img src="./img/home.png" width=800 />
+<img src="./img/result.png" width=800 />
 
 #### About page with scale
 <img src="./img/about.png" width=800 />
