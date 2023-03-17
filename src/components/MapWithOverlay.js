@@ -242,6 +242,12 @@ const MapWithOverlay = () => {
         onOk={() => {
           setResult(null);
         }}
+        onCancel={
+          () => {
+            setResult(null);
+          }
+        }
+
         >
           <p>
             Start: {readableDateTime(result?.startTime)}<br/>
