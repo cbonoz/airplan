@@ -1,6 +1,7 @@
 
+// https://github.com/pointhi/leaflet-color-markers
 const getPM25Color = (pm25) => {
-    console.log('pm25', pm25)
+    // Returns a marker color based on the pm25 (particulate) value.
     if (pm25 < 12) {
         return 'green';
     }
@@ -11,15 +12,9 @@ const getPM25Color = (pm25) => {
         return 'orange';
     }
     if (pm25 < 150.5) {
-        return 'red';
+        return 'violet';
     }
-    if (pm25 < 250.5) {
-        return 'purple';
-    }
-    if (pm25 < 350.5) {
-        return 'maroon';
-    }
-    return 'darkred';
+    return 'red';
 }
 
 export const getMarkerColor = (measurements) => {
@@ -43,5 +38,8 @@ export const makeIcon = (color) => {
 }
 
 export const readableDateTime = (time) => {
+    if (!time) {
+        return '';
+    }
     return `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()} ${time.getHours()}:${time.getMinutes()}:${time.getSeconds()}`
 }
