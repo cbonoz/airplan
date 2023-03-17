@@ -1,6 +1,9 @@
-import { APP_NAME, INSTRUCTIONS } from '@/util/constants'
+import ColorBox from '@/components/ColorBox'
+import { APP_NAME, GREEN_25, INSTRUCTIONS, ORANGE_25, VIOLET_25, YELLOW_25 } from '@/util/constants'
 
 // const MapWithOverlay = dynamic(() => import('@/components/MapWithOverlay'), { ssr: false })
+
+const COLORS = ['#00FF00', '#FFFF00', '#FFA500', '#FF00FF', '#FF0000']
 
 
 export default function About() {
@@ -30,26 +33,21 @@ export default function About() {
         <br />
 
         <h2>Color scale </h2>
+        <p>
+          Scale is based on the EPA's Air Quality Index (AQI) scale for PM2.5 values.
+          <br/>
+          <a href='https://blissair.com/what-is-pm-2-5.htm' target='_blank'>Read more</a>
+        </p>
 
-        <pre>
-          {`const getPM25Color = (pm25) => {
-    // Returns a marker color based on the pm25 (particulate) value.
+        <div className='color-scale'>
+        {COLORS.map((color, i) => {
+          return <ColorBox
+            color={color}
+            key={i}
+            text={i === 0 ? `Good (0 - ${GREEN_25})` : i === 1 ? `Moderate (${GREEN_25} - ${YELLOW_25})` : i === 2 ? `Unhealthy for Sensitive Groups (${YELLOW_25} - ${ORANGE_25})` : i === 3 ? `Unhealthy (${ORANGE_25} - ${VIOLET_25})` : `Very Unhealthy (${VIOLET_25} or above)`}
+          />})}
+        </div>
 
-    if (pm25 < 12) {
-        return 'green'; // good
-    }
-    if (pm25 < 35.5) {
-        return 'yellow'; // ok
-    }
-    if (pm25 < 55.5) {
-        return 'orange'; // warning
-    }
-    if (pm25 < 150.5) {
-        return 'violet'; // bad
-    }
-    return 'red'; // danger
-}`}
-        </pre>
 
       </div>
     </>

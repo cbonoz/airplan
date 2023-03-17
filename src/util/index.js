@@ -1,17 +1,18 @@
+import { GREEN_25, ORANGE_25, VIOLET_25, YELLOW_25 } from "./constants";
 
 // https://github.com/pointhi/leaflet-color-markers
 const getPM25Color = (pm25) => {
     // Returns a marker color based on the pm25 (particulate) value.
-    if (pm25 < 12) {
+    if (pm25 < GREEN_25) {
         return 'green';
     }
-    if (pm25 < 35.5) {
+    if (pm25 < YELLOW_25) {
         return 'yellow';
     }
-    if (pm25 < 55.5) {
+    if (pm25 < ORANGE_25) {
         return 'orange';
     }
-    if (pm25 < 150.5) {
+    if (pm25 < VIOLET_25) {
         return 'violet';
     }
     return 'red';
