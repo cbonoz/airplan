@@ -22,7 +22,6 @@ export default function App({ Component, pageProps }) {
         About
       </Link>,
       href: '/about',
-      onclick: () => router.push('/about'),
     },
   ]
 

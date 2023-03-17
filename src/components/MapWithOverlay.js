@@ -127,7 +127,7 @@ const MapWithOverlay = () => {
           position: 'absolute',
           margin: '10px',
           borderRadius: '5px',
-          opacity: 0.8,
+          opacity: 0.95,
           width: 300,
           height: 425,
           background: 'white',
