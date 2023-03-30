@@ -8,6 +8,9 @@
 # testing
 /coverage
 
+# cache
+.dccache
+
 # env
 .env
 

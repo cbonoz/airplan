@@ -9,3 +9,18 @@ export const GREEN_25 = 12
 export const YELLOW_25 = 35.5
 export const ORANGE_25 = 55.5
 export const VIOLET_25 = 150.5
+
+export const RECORD_STEPS = [
+    {
+      title: 'Start',
+      description: 'Click to set start point',
+    },
+    {
+      title: 'End',
+      description: 'Click to set end point',
+    },
+    {
+      title: 'Record',
+      description: 'Start recording. Map is now clickable.',
+    },
+  ]

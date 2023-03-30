@@ -27,6 +27,13 @@ export const getMarkerColor = (measurements) => {
     return 'green';
 }
 
+export const readableCity = (c) => {
+    if (!c) {
+        return '';
+    }
+    return `${c.city}, ${c.state_name}`
+}
+
 
 export const makeIcon = (color) => {
     return L.icon({

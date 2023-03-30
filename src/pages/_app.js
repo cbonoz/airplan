@@ -2,6 +2,7 @@ import '@/styles/globals.css'
 import { Menu } from 'antd';
 import 'antd/dist/reset.css';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 // import 'leaflet/dist/leaflet.css';
 
@@ -12,7 +13,7 @@ export default function App({ Component, pageProps }) {
     {
       key: '/',
       label: <Link href={"/"}>
-        <img src="/logo.png" alt="logo" style={{ height: '32px', width: '100px' }} />
+        <Image src="/logo.png" width={100} height={32} alt="logo"/>
         </Link>,
     },
     // about

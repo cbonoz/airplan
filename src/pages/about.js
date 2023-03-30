@@ -1,4 +1,5 @@
 import ColorBox from '@/components/ColorBox'
+import Image from 'next/image'
 import { APP_NAME, GREEN_25, INSTRUCTIONS, ORANGE_25, VIOLET_25, YELLOW_25 } from '@/util/constants'
 
 // const MapWithOverlay = dynamic(() => import('@/components/MapWithOverlay'), { ssr: false })
@@ -10,7 +11,7 @@ export default function About() {
   return (
     <>
       <div className='container'>
-        <img src='/logo.png' alt='logo' className='logo' />
+        <Image src='/logo.png' width={400} alt='logo' className='logo' />
         <br />
         <br />
         <br />
@@ -34,7 +35,7 @@ export default function About() {
 
         <h2>Color scale </h2>
         <p>
-          Scale is based on the EPA's Air Quality Index (AQI) scale for PM2.5 values.
+          Scale is based on the EPA&apos;s Air Quality Index (AQI) scale for PM2.5 values.
           <br/>
           <a href='https://blissair.com/what-is-pm-2-5.htm' target='_blank'>Read more</a>
         </p>

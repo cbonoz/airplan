@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents, ZoomControl, Polyline } from 'react-leaflet';
-import axios from 'axios';
 import { getAirQualityData } from '@/api';
-import { getMarkerColor, makeIcon, readableDateTime } from '@/util';
-import { APP_NAME, INSTRUCTIONS } from '@/util/constants';
-import { AutoComplete, Button, Input, Modal, Steps } from 'antd';
+import { getMarkerColor, makeIcon, readableCity, readableDateTime } from '@/util';
+import { APP_NAME, INSTRUCTIONS, RECORD_STEPS } from '@/util/constants';
+import { AutoComplete, Button, Modal, Steps, notification, Card } from 'antd';
+import Image from 'next/image';
 import { ipfsUrl, makeMetadataFile, storeFiles } from '@/util/stor';
 import { CITIES } from '@/util/cities';
 
-export const CITY_OPTIONS = CITIES.map((c) => {
+export const CITY_OPTIONS = CITIES.map((data) => {
   return {
-    value: JSON.stringify(c),
-    label: `${c.city}, ${c.state_name}`
+    data,
+    value: readableCity(data)
   }
 })
 
@@ -27,9 +27,18 @@ const MapWithOverlay = () => {
 
   const [end, setEnd] = useState(null);
   const [map, setMap] = useState(null);
-
-
   const [result, setResult] = useState(null);
+
+  const [api, contextHolder] = notification.useNotification();
+
+  const noDataNotification = () => {
+    api.warning({
+      message: 'No data found',
+      description:
+        'Try clicking another location or try again.',
+      duration: 1.5,
+    });
+  };
 
   const clear = () => {
     setStart(null);
@@ -62,7 +71,12 @@ const MapWithOverlay = () => {
       const response = await getAirQualityData(lat, lng);
       console.log('data', response.data)
       const results = response.data.results;
-      setAirQualityData([...airQualityData, ...results]);
+      if (Array.isArray(results) && results.length > 0) {
+        setAirQualityData([...airQualityData, ...results]);
+      } else {
+        console.log('no results')
+        noDataNotification();
+      }
     }
     catch (error) {
       console.log(error);
@@ -110,9 +124,12 @@ const MapWithOverlay = () => {
   const MapEvent = () => {
     const m = useMapEvents({
       click: handleMapClick,
+      load: (m) => {
+        m.locate();
+        setMap(m)
+      }
     })
-    console.log('m', m)
-    setMap(m)
+    // setMap(m)
     return <></>
   }
 
@@ -122,6 +139,8 @@ const MapWithOverlay = () => {
         position: 'relative',
       }}
     >
+      {contextHolder}
+
       <div
         style={{
           position: 'absolute',
@@ -144,11 +163,8 @@ const MapWithOverlay = () => {
             direction="vertical"
             current={!!start + !!end + !!recording}
             style={{ width: '100%' }}
-          >
-            <Steps.Step title="Start" description="Click to set start point" />
-            <Steps.Step title="End" description="Click to set end point" />
-            <Steps.Step title="Record" description="Start recording. Map is now clickable." />
-          </Steps>
+            items={RECORD_STEPS}
+          />
           <br />
           <br />
 
@@ -168,35 +184,47 @@ const MapWithOverlay = () => {
             clear()
           }}>Reset</a>
         </div>
-        <br/>
+        <br />
 
         {!start && !end && <AutoComplete
-        options={CITY_OPTIONS}
-        style={{ width: 200 }}
-        filterOption={(inputValue, option) =>
-          option.label.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
-        }
-        onSelect={(d) => {
-          d = JSON.parse(d)
-          console.log('selected', d, map)
-          map?.flyTo([d.lat, d.lng], 13, {
-            animate: true,
-            duration: 3 
-          })
-         }}
-        placeholder="Quick navigate"
-      />}
+          options={CITY_OPTIONS}
+          style={{ width: 200 }}
+          filterOption={(inputValue, option) =>
+            option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
+          }
+          onChange={(value) => {
+            setValue(value)
+          }}
+          value={value}
+          onSelect={(value, opt) => {
+            console.log('selected', value, opt, map)
+            setValue(value)
+            if (!map) {
+              console.log('no map set')
+              return
+            }
+            const { data } = opt
+            map.flyTo([data.lat, data.lng], 13, {
+              animate: true,
+              duration: 3
+            })
+          }}
+          placeholder="Quick navigate"
+        />}
 
 
       </div>
 
       <MapContainer
-       style={{ width: '100%', height: 1000 }} center={[37.7749, -122.4194]} zoom={13}
-       zoomControl={false}
-       >
+        style={{ width: '100%', height: 1000 }}
+        ref={setMap}
+        center={[37.7749, -122.4194]}
+        zoom={13}
+        zoomControl={false}
+      >
         <MapEvent />
         <ZoomControl
-          position="topright"/>
+          position="topright" />
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
         {/* {selectedLocation && <Marker position={selectedLocation}>
           <Popup>
@@ -204,26 +232,26 @@ const MapWithOverlay = () => {
           </Popup>
         </Marker>} */}
         {start && <Marker
-        icon={
-          makeIcon('grey')
-        }
-         position={[start.lat, start.lng]}>
-              <Popup>
-                Start
+          icon={
+            makeIcon('grey')
+          }
+          position={[start.lat, start.lng]}>
+          <Popup>
+            Start
           </Popup>
         </Marker>}
         {end && <Marker
-        icon={
-          makeIcon('black')
-        }
-         position={[end.lat, end.lng]}>
+          icon={
+            makeIcon('black')
+          }
+          position={[end.lat, end.lng]}>
           <Popup>
             End
           </Popup>
         </Marker>
-          }
+        }
 
-          {start && end && <Polyline pathOptions={{ color: 'black' }} positions={[start, end]} />}
+        {start && end && <Polyline pathOptions={{ color: 'black' }} positions={[start, end]} />}
 
 
         {airQualityData?.map((result, i) => (
@@ -239,7 +267,9 @@ const MapWithOverlay = () => {
       </MapContainer>
 
       <Modal
-        title="Journey complete"
+        title={<span>
+          <Image src="/logo.png" width={120} height={40} />
+        </span>}
         open={result !== null}
         cancelButtonProps={{ style: { display: 'none' } }}
         onOk={() => {
@@ -251,17 +281,21 @@ const MapWithOverlay = () => {
           }
         }
 
-        >
+      >
+        <Card
+          title="Journey complete">
+            <br/>
           <p>
-            Start: {readableDateTime(result?.startTime)}<br/>
-            End: {readableDateTime(result?.endTime)}<br/>
+            Start: {readableDateTime(result?.startTime)}<br />
+            End: {readableDateTime(result?.endTime)}<br />
           </p>
 
           <p>
             <a href={result?.url} target="_blank">View Filecoin Trip record</a>
           </p>
+        </Card>
 
-        </Modal>
+      </Modal>
     </div>
   );
 };

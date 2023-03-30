@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "deploy": "next export && surge --project ./out --domain airplan.surge.sh"
   },
   "dependencies": {
     "antd": "^5.3.1",
