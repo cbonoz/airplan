@@ -7,7 +7,7 @@ Airplan
 
 Introducing Airplan - a new air quality monitor and lookup app that leverages the power of Filecoin and the OpenAQ API to provide real-time air quality data for cities around the world. With Airplan, users can quickly and easily access air quality data for their local area, view historical trends, and monitor changes over time.
 
-Demo:
+Demo: https://airplan.surge.sh/
 
 Video: 
 
