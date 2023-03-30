@@ -24,6 +24,7 @@ const MapWithOverlay = () => {
   const [startTime, setStartTime] = useState(null);
   const [loading, setLoading] = useState(false);
   const [value, setValue] = useState('');
+  const [hidePanel, setHidePanel] = useState(false);
 
   const [end, setEnd] = useState(null);
   const [map, setMap] = useState(null);
@@ -148,7 +149,7 @@ const MapWithOverlay = () => {
           borderRadius: '5px',
           opacity: 0.95,
           width: 300,
-          height: 425,
+          height: hidePanel ? 60 : 425,
           background: 'white',
           top: 0,
           left: 0,
@@ -156,9 +157,16 @@ const MapWithOverlay = () => {
           zIndex: 999
         }}  >
         {/* <img src='/logo.png' style={{ width: '100px' }} /> */}
-        <p>Instructions</p>
+        <p>
+          Instructions
+          &nbsp;
+          {recording && <a href="#" onClick={(e) => {
+            e.preventDefault();
+            setHidePanel(!hidePanel)
+          }}>{hidePanel ? 'Show' : 'Hide'}</a>}
+        </p>
 
-        <div style={{ marginTop: '10px' }}>
+        {!hidePanel && <div style={{ marginTop: '10px' }}>
           <Steps
             direction="vertical"
             current={!!start + !!end + !!recording}
@@ -183,36 +191,36 @@ const MapWithOverlay = () => {
             e.preventDefault();
             clear()
           }}>Reset</a>
-        </div>
-        <br />
+          <br />
 
-        {!start && !end && <AutoComplete
-          options={CITY_OPTIONS}
-          style={{ width: 200 }}
-          filterOption={(inputValue, option) =>
-            option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
-          }
-          onChange={(value) => {
-            setValue(value)
-          }}
-          value={value}
-          onSelect={(value, opt) => {
-            console.log('selected', value, opt, map)
-            setValue(value)
-            if (!map) {
-              console.log('no map set')
-              return
+          {!start && !end && <AutoComplete
+            options={CITY_OPTIONS}
+            style={{ width: 200 }}
+            filterOption={(inputValue, option) =>
+              option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
             }
-            const { data } = opt
-            map.flyTo([data.lat, data.lng], 13, {
-              animate: true,
-              duration: 3
-            })
-          }}
-          placeholder="Quick navigate"
-        />}
+            onChange={(value) => {
+              setValue(value)
+            }}
+            value={value}
+            onSelect={(value, opt) => {
+              console.log('selected', value, opt, map)
+              setValue(value)
+              if (!map) {
+                console.log('no map set')
+                return
+              }
+              const { data } = opt
+              map.flyTo([data.lat, data.lng], 13, {
+                animate: true,
+                duration: 3
+              })
+            }}
+            placeholder="Quick navigate"
+          />}
 
 
+        </div>}
       </div>
 
       <MapContainer
@@ -284,7 +292,7 @@ const MapWithOverlay = () => {
       >
         <Card
           title="Journey complete">
-            <br/>
+          <br />
           <p>
             Start: {readableDateTime(result?.startTime)}<br />
             End: {readableDateTime(result?.endTime)}<br />
