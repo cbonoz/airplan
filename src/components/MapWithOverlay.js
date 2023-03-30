@@ -291,8 +291,10 @@ const MapWithOverlay = () => {
 
       >
         <Card
-          title="Journey complete">
-          <br />
+          title={<span className='success-text'>Journey complete</span>}>
+          <p>
+            Measurements taken: {airQualityData.length}<br />
+          </p>
           <p>
             Start: {readableDateTime(result?.startTime)}<br />
             End: {readableDateTime(result?.endTime)}<br />
