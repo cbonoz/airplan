@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents, ZoomControl, Polyline } from 'react-leaflet';
 import { getAirQualityData } from '@/api';
 import { getMarkerColor, makeIcon, readableCity, readableDateTime } from '@/util';
-import { APP_NAME, INSTRUCTIONS, RECORD_STEPS } from '@/util/constants';
+import { APP_NAME, RECORD_STEPS } from '@/util/constants';
 import { AutoComplete, Button, Modal, Steps, notification, Card } from 'antd';
 import Image from 'next/image';
 import { ipfsUrl, makeMetadataFile, storeFiles } from '@/util/stor';
