@@ -149,7 +149,7 @@ const MapWithOverlay = () => {
           borderRadius: '5px',
           opacity: 0.95,
           width: 300,
-          height: hidePanel ? 60 : 425,
+          height: hidePanel ? 120 : 420,
           background: 'white',
           top: 0,
           left: 0,
@@ -160,21 +160,19 @@ const MapWithOverlay = () => {
         <p>
           Instructions
           &nbsp;
-          {recording && <a href="#" onClick={(e) => {
+          <a href="#" onClick={(e) => {
             e.preventDefault();
             setHidePanel(!hidePanel)
-          }}>{hidePanel ? 'Show' : 'Hide'}</a>}
+          }}>{hidePanel ? 'Show' : 'Hide'}</a>
         </p>
 
-        {!hidePanel && <div style={{ marginTop: '10px' }}>
-          <Steps
+        <div style={{ marginTop: '10px' }}>
+          {!hidePanel && <Steps
             direction="vertical"
             current={!!start + !!end + !!recording}
-            style={{ width: '100%' }}
+            style={{ width: '100%', marginBottom: '10px' }}
             items={RECORD_STEPS}
-          />
-          <br />
-          <br />
+          />}
 
           <Button type="primary"
             loading={loading}
@@ -220,7 +218,7 @@ const MapWithOverlay = () => {
           />}
 
 
-        </div>}
+        </div>
       </div>
 
       <MapContainer
