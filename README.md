@@ -1,5 +1,5 @@
 <p align='center'>
-    <img src='img/logo.png' width=400 />
+    <img src='https://i.ibb.co/ynP8BV3/logo.png' width=400 />
 </p>
 
 Airplan
@@ -7,10 +7,11 @@ Airplan
 
 Introducing Airplan - a new air quality monitor and lookup app that leverages the power of Filecoin and the OpenAQ API to provide real-time air quality data for cities around the world. With Airplan, users can quickly and easily access air quality data for their local area, view historical trends, and monitor changes over time.
 
-Demo: https://airplan.surge.sh/
+Live url: https://airplan.surge.sh/
 
-Video: 
+Demo Video: https://youtu.be/FAoDxYhY-bE
 
+Built for the Protocol Labs (Filecoin Green) sustainable hackathon 2023.
 
 ### Background
 
@@ -54,7 +55,7 @@ https://bafybeidlajl7oippalzcosili3uizggjanegqaxpjwkawsy7vv6puh634e.ipfs.w3s.lin
 <img src="./img/navigate.png" width=800 />
 
 #### Completed journey
-<img src="./img/modal.png" width=800 />
+<img src="./img/complete.png" width=800 />
 
 #### Uploaded result (shareable / permanent archive)
 <img src="./img/ipfs.png" width=800 />
@@ -65,7 +66,7 @@ https://bafybeidlajl7oippalzcosili3uizggjanegqaxpjwkawsy7vv6puh634e.ipfs.w3s.lin
 #### About page with air quality scale
 <img src="./img/about.png" width=800 />
 
-### Future work
+### Potential future work
 
 1. Customizable Air Quality Alerts: Allow users to set up customizable air quality alerts to be notified when the air quality index (AQI) in their area reaches a certain level, or when specific pollutants exceed a certain threshold. This would require implementing a notification system that leverages the OpenAQ API to pull in real-time air quality data.
 
